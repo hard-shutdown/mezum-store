@@ -1,0 +1,19 @@
+{
+  "cwd": "/workspace/empty-repo",
+  "type": [
+    "pwa"
+  ],
+  "name": "MezumStore",
+  "framework": "core",
+  "template": "tabs",
+  "bundler": "vite",
+  "cssPreProcessor": "less",
+  "theming": {
+    "customColor": true,
+    "color": "#fd33ff",
+    "darkTheme": true,
+    "iconFonts": true,
+    "fillBars": false
+  },
+  "customBuild": false
+}
