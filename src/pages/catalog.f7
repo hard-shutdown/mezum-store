@@ -14,27 +14,51 @@
           `)}
         </ul>
       </div>
-      ${products.value.length === 3 && $h`
-        <div class="block">
-          <button class="button button-fill" @click=${addProduct}>Add Product</Button>
-        </div>
-      `}
     </div>
   </div>
 </template>
 <script>
   export default (props, { $store }) => {
+    const defaultRepo = "data:application/json;charset=utf-8;base64,eyJpZCI6IjEiLCJ0aXRsZSI6IkFwcGxlIGlQaG9uZSA4IiwiZGVzY3JpcHRpb24iOiJ1ciBtb20iLCJpY29uIjoiaHR0cHM6Ly93d3cuZnJlZWljb25zcG5nLmNvbS91cGxvYWRzL3Nwb3RpZnktaWNvbi0xMS5wbmcifQ==";
+
     const products = $store.getters.products;
 
-    const addProduct = () => {
-      $store.dispatch('addProduct', {
-        id: '4',
-        title: 'Apple iPhone 12',
-        description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nisi tempora similique reiciendis, error nesciunt vero, blanditiis pariatur dolor, minima sed sapiente rerum, dolorem corrupti hic modi praesentium unde saepe perspiciatis.'
-      });
+    const loadProductsFromUrl = (url,callback) => {
+      let xhr = new XMLHttpRequest();
+      xhr.open('GET', url, true);
+      xhr.responseType = 'json';
+
+      xhr.onload = () => {
+
+        let status = xhr.status;
+
+        if (status == 200) {
+            callback(null, xhr.response);
+        } else {
+            callback(status, null);
+        }
+      };
+
+      xhr.send();
     }
 
-    return $render;
-  }
+    fetch(defaultRepo).then(res => {
+      var data = res.json().then(data => {
+        console.log(data);
+        $store.dispatch('addProduct', {
+          id: (Math.random() * 10000).toFixed(),
+          icon: data.icon,
+          title: data.title,
+          description: data.description
+        });
+
+      });
+
+    });
+    
+    
+ 
+  return $render;
+}
 
 </script>

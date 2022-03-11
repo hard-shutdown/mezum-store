@@ -13,7 +13,10 @@
       </div>
     </div>
     <div class="page-content">
-      <div class="block-title">About ${currentProduct.title}</div>
+      <div class="block-title">
+        <img data-src="${currentProduct.icon}" alt="app_icon" class="app-icon lazy lazy-fade-in" />
+        <a class="button button-round button-fill external get-button" href="https://apps.apple.com/app/id835599320" target="_blank">GET</a>
+      </div>
       <div class="block block-strong">
         ${currentProduct.description}
       </div>
